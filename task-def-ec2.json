@@ -1,0 +1,88 @@
+{
+  "ipcMode": null,
+  "executionRoleArn": "arn:aws:iam::697484174332:role/mysfits-ecsServiceRole-eu-west-1",
+  "containerDefinitions": [
+      {
+          "dnsSearchDomains": [],
+          "environmentFiles": null,
+          "logConfiguration": {
+              "logDriver": "awslogs",
+              "secretOptions": null,
+              "options": {
+                  "awslogs-group": "mysfits-loggroup-eu-west-1",
+                  "awslogs-region": "eu-west-1",
+                  "awslogs-stream-prefix": "awslogs-mythicalmysfits-service"
+              }
+          },
+          "entryPoint": [],
+          "portMappings": [
+              {
+                  "hostPort": 8080,
+                  "protocol": "tcp",
+                  "containerPort": 8080
+              }
+          ],
+          "command": [],
+          "linuxParameters": null,
+          "cpu": 0,
+          "environment": [
+              {
+                  "name": "UPSTREAM_URL",
+                  "value": "mysfits-alb-747943350.eu-west-1.elb.amazonaws.com"
+              },
+              {
+                  "name": "DDB_TABLE_NAME",
+                  "value": "mysfits-table-eu-west-1"
+              }
+          ],
+          "resourceRequirements": null,
+          "ulimits": null,
+          "dnsServers": [],
+          "mountPoints": [],
+          "workingDirectory": null,
+          "secrets": null,
+          "dockerSecurityOptions": [],
+          "memory": null,
+          "memoryReservation": null,
+          "volumesFrom": [],
+          "stopTimeout": null,
+          "image": "697484174332.dkr.ecr.eu-west-1.amazonaws.com/mysfits-monolith:latest",
+          "startTimeout": null,
+          "firelensConfiguration": null,
+          "dependsOn": null,
+          "disableNetworking": null,
+          "interactive": null,
+          "healthCheck": {
+              "retries": 3,
+              "command": [ "CMD", "python", "healthcheck.py" ],
+              "timeout": 5,
+              "interval": 30
+          },
+          "essential": true,
+          "links": [],
+          "hostname": null,
+          "extraHosts": null,
+          "pseudoTerminal": null,
+          "user": null,
+          "readonlyRootFilesystem": null,
+          "dockerLabels": {},
+          "systemControls": [],
+          "privileged": null,
+          "name": "monolith-service"
+      }
+  ],
+  "memory": "2048",
+  "taskRoleArn": "arn:aws:iam::697484174332:role/mysfits-ecsTaskRole-eu-west-1",
+  "family": "mysfits-monolith-test",
+  "pidMode": null,
+  "requiresCompatibilities": [
+      "EC2"
+  ],
+  "networkMode": "awsvpc",
+  "cpu": "1024",
+  "inferenceAccelerators": [],
+  "proxyConfiguration": null,
+  "volumes": [],
+  "placementConstraints": [],
+  "tags": []
+}
