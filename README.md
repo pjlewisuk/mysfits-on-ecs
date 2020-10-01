@@ -9,6 +9,11 @@ Deploying and running Mythical Misfits on Amazon ECS
 * Deploy `mysfits-cfn.yaml` in [CloudFormation console](https://console.aws.amazon.com/cloudformation/home) with stack name `mysfits`
 * Update `task-def-ec2.json` with latest `DDB_TABLE_NAME` and `UPSTREAM_URL` from `mysfits` CloudFormation stack
 * Run `script/setup.sh` to populate the DynamoDB table and S3 bucket
+* Set a couple of useful environment variables:
+```bash
+export AWS_ACCOUNT_ID=112233445566
+export AWS_REGION=eu-west-1
+```
 
 ## Run
 
@@ -20,8 +25,8 @@ Deploying and running Mythical Misfits on Amazon ECS
 2. Pull Olly's Docker image and push into Amazon ECR:
     * ```bash
       docker pull ollypom/mysfits:v3
-      docker tag ollypom/mysfits:v3 697484174332.dkr.ecr.eu-west-1.amazonaws.com/mysfits-monolith:latest
-      docker push 697484174332.dkr.ecr.eu-west-1.amazonaws.com/mysfits-monolith:latest
+      docker tag ollypom/mysfits:v3 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/mysfits-monolith:latest
+      docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/mysfits-monolith:latest
       ```
     * Return to mysfits-monolith repository in the [ECR Console](https://console.aws.amazon.com/ecr/repositories/mysfits-monolith/?region=eu-west-1) to show the image we've just pushed
 3. Open [CloudFormation console](https://console.aws.amazon.com/cloudformation/home?#/stacks/) and view the Outputs tab of the `mysfits` stack.
